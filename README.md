@@ -1,7 +1,12 @@
 # Focus-Finder
+This is an application designed to track a user's focus when browsing websites, allowing for better understanding of browsing habits.
 
 ## Chrome Extension
-- UI of the application uses Vite React
+
+### Features
+- React
+- Typescript 
+- TailwindCSS
 
 ### Setup
 - To setup the application, locate the `focus-finder-extension` directory then use `npm install` command
