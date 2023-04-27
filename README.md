@@ -7,7 +7,12 @@ This is an application designed to track a user's focus when browsing websites, 
 - React
 - Typescript 
 - TailwindCSS
+- GraphQL
 
+### ENV Variables
+``` bash
+VITE_APP_GRAPHQL_URL=
+``` 
 ### Setup
 - To setup the application, locate the `focus-finder-extension` directory then use `npm install` command
 - Locally run or develop the app use `npm run dev` and the application UI should show on http://localhost:5173
