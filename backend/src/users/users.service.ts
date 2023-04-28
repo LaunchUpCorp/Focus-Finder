@@ -20,6 +20,7 @@ export class UsersService {
     this.users.push(user);
     return user;
   }
+
   public updateUser(updateUserData: UpdateUserInput): User {
     const user = this.users.find(
       (user) => user.userId === updateUserData.userId,
