@@ -1,13 +1,22 @@
 # Focus-Finder
 This is an application designed to track a user's focus when browsing websites, allowing for better understanding of browsing habits.
 
+## Backend server
+- Backend server for Focus-Finder is built with nest.js. For detailed information (e.g. how to run it locally), see `backend/README.md`.
+
 ## Chrome Extension
+- UI of the application uses Vite React
 
 ### Features
 - React
 - Typescript 
 - TailwindCSS
+- GraphQL
 
+### ENV Variables
+``` bash
+VITE_APP_GRAPHQL_URL=
+``` 
 ### Setup
 - To setup the application, locate the `focus-finder-extension` directory then use `npm install` command
 - Locally run or develop the app use `npm run dev` and the application UI should show on http://localhost:5173
