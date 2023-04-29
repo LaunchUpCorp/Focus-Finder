@@ -4,14 +4,15 @@ export interface IAuthInput {
   message?: string;
   type?: string;
   value?: string;
+  error?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-const Input: FC<IAuthInput> = ({ message, type, value, onChange }) => {
+const Input: FC<IAuthInput> = ({ message, type, value, error, onChange }) => {
   return (
-    <div>
-      <p>{message}</p>
-      <input type={type} value={value} onChange={onChange} />
-    </div>
+    error ?
+    <input className='text-xl p-2 my-4 placeholder-white rounded-md border border-red-500' placeholder={message} type={type} value={value} onChange={onChange} />
+    :
+    <input className='text-xl p-2 my-4 placeholder-white rounded-md' placeholder={message} type={type} value={value} onChange={onChange} />
   );
 };
 
