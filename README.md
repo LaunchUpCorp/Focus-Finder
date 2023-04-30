@@ -16,6 +16,7 @@ This is an application designed to track a user's focus when browsing websites, 
 ### ENV Variables
 ``` bash
 VITE_APP_GRAPHQL_URL=
+VITE_APP_WEBSITE_URL=
 ``` 
 ### Setup
 - To setup the application, locate the `focus-finder-extension` directory then use `npm install` command
