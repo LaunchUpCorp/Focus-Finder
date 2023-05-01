@@ -27,6 +27,7 @@
     "@nestjs/graphql": "^11.0.5",
     "@nestjs/jwt": "^10.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "argon2": "^0.30.3",
     "class-validator": "^0.14.0",
     "graphql": "^16.6.0",
     "reflect-metadata": "^0.1.13",
