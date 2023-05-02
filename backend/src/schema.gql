@@ -2,8 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Activity {
+  endTime: Timestamp!
+  id: Int!
+  startTime: Timestamp!
+  url: String!
+  userId: Int!
+}
+
 input CreateUserInput {
   email: String!
+}
+
+input CreateaActivityInput {
+  endTime: Timestamp!
+  startTime: Timestamp!
+  url: String!
+  userId: Int!
 }
 
 input DeleteUserInput {
@@ -11,6 +26,7 @@ input DeleteUserInput {
 }
 
 type Mutation {
+  createActivity(createActivityData: CreateaActivityInput!): Activity!
   createUser(createUserData: CreateUserInput!): User!
   deleteUser(deleteUserData: DeleteUserInput!): User!
   updateUser(updateUserData: UpdateUserInput!): User!
@@ -19,6 +35,11 @@ type Mutation {
 type Query {
   user(id: Int!): User
 }
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
 
 input UpdateUserInput {
   email: String!

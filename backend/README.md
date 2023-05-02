@@ -2,11 +2,35 @@
 
 This is a backend server for Focus-Finder built with nest.js. To learn about nest.js and how to use it with GraphQL, visit: https://docs.nestjs.com/graphql
 
+## Tech Stack
+- Nest.js
+- GraphQL APIs with Apollo server
+- PostgreSQL
+- Prisma
+
 ## Available APIs
 
-Currently, CRUD operations on `Users` are available for testing purposes. You can connect to your local Postgres db and test the queries.
+- Create browsing activity of a user
+- CRUD operations on `User` 
 
 ### Examples
+
+#### Create Activity
+```
+mutation {
+  createActivity(createActivityData: {
+    url: "https://google.com",
+    startTime: 1683034649000,
+    endTime: 1683034750000,
+    userId: 3,
+  }) {
+    id
+    url
+    startTime
+    endTime
+    userId
+  }
+}```
 
 #### Get User
 ```
@@ -55,3 +79,5 @@ mutation {
 - Run `npx prisma migrate dev` to apply migrations. (To learn more about Prisma, visit: https://www.prisma.io/docs)
 - Run `npm run start`(development) or `npm run start:dev`(watch mode) to run server on `localhost:3000`.
 - Visit `localhost:3000/graphql` to test APIs in the playground.
+- You can see database records in Prisma Studio by running `npx prisma studio`. For more informaion on Prisma Studio visit https://www.prisma.io/docs/concepts/components/prisma-studio
+

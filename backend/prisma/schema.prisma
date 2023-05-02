@@ -11,6 +11,16 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
+  id       Int        @id @default(autoincrement())
+  email    String     @unique
+  Activity Activity[]
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  url       String
+  startTime DateTime
+  endTime   DateTime
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
 }
