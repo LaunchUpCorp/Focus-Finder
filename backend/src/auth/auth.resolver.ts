@@ -4,6 +4,7 @@ import { Auth } from './entities/auth.entity';
 import { SignupInput } from './dto/signup.input';
 import { UpdateAuthInput } from './dto/update-auth.input';
 import { SignResponse } from './dto/sign-response';
+import { SigninInput } from './dto/signin.input';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -11,17 +12,12 @@ export class AuthResolver {
 
   @Mutation(() => SignResponse)
   signup(@Args('signupInput') signupInput: SignupInput) {
-    return this.authService.create(signupInput);
+    return this.authService.signup(signupInput);
   }
 
-  @Query(() => [Auth], { name: 'auth' })
-  findAll() {
-    return this.authService.findAll();
-  }
-
-  @Query(() => Auth, { name: 'auth' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.authService.findOne(id);
+  @Mutation(() => SignResponse)
+  signin(@Args('signinInput') signinInput: SigninInput) {
+    return this.authService.signup(signinInput);
   }
 
   @Mutation(() => Auth)
