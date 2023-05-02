@@ -1,39 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { SignupInput } from './dto/signup.input';
 import { SigninInput } from './dto/signin.input';
 import { UpdateAuthInput } from './dto/update-auth.input';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     private configService: ConfigService,
+    private prisma: PrismaService,
   ) {}
 
   async signup(signupInput: SignupInput) {
     const hashedPassword = await argon.hash(signupInput.password);
-    // Save the hashed password and signup email into db
-    const user = {
-      id: '1hh1h1h1hh1h1h1hh1h1h1',
-      email: 'cool@cool.cool',
-    };
+    const user = await this.prisma.user.create({
+      data: { email: signupInput.email, hashedPassword },
+    });
     const { accessToken, refreshToken } = await this.createTokens(
       user.id,
       user.email,
     );
-    this.updateRefreshToken(user.id, refreshToken);
+    await this.updateRefreshToken(user.id, refreshToken);
     return { accessToken, refreshToken, user };
   }
 
   async signin(signinInput: SigninInput) {
-    // Query for email in db
-    // verify password with argon2
-    // create new tokens
-    // update refreshtoken in db
-    // return tokens
+    const user = await this.prisma.user.findUnique({
+      where: { email: signinInput.email },
+    });
+    if (!user) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const verifyPassword = await argon.verify(
+      user.hashedPassword,
+      signinInput.password,
+    );
+    if (!verifyPassword) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const { accessToken, refreshToken } = await this.createTokens(
+      user.id,
+      user.email,
+    );
+    await this.updateRefreshToken(user.id, refreshToken);
+    return { accessToken, refreshToken };
   }
 
   async createTokens(userId: string, email: string) {
@@ -63,6 +77,16 @@ export class AuthService {
 
   async updateRefreshToken(userId: string, refreshToken: string) {
     const hashedRefreshToken = await argon.hash(refreshToken);
-    // search db for userId and update the refresh token
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { hashedRefreshToken },
+    });
+  }
+  async logout(userId: string) {
+    await this.prisma.user.updateMany({
+      where: { id: userId, hashedRefreshToken: { not: null } },
+      data: { hashedRefreshToken: null },
+    });
+    return { loggedOut: true };
   }
 }
