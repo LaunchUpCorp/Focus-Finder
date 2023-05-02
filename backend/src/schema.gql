@@ -7,7 +7,7 @@ input CreateUserInput {
 }
 
 input DeleteUserInput {
-  userId: Int!
+  id: Int!
 }
 
 type Mutation {
@@ -17,16 +17,15 @@ type Mutation {
 }
 
 type Query {
-  user(userId: Int!): User
-  users(userIds: [Int!]!): [User]!
+  user(id: Int!): User
 }
 
 input UpdateUserInput {
   email: String!
-  userId: Int!
+  id: Int!
 }
 
 type User {
   email: String!
-  userId: Int!
+  id: Int!
 }
