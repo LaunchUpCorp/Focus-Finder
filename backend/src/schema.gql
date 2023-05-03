@@ -2,30 +2,39 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateUserInput {
-  email: String!
-}
-
-input DeleteUserInput {
-  id: Int!
-}
-
 type Mutation {
-  createUser(createUserData: CreateUserInput!): User!
-  deleteUser(deleteUserData: DeleteUserInput!): User!
-  updateUser(updateUserData: UpdateUserInput!): User!
+  getNewTokens: NewTokensResponse!
+  logout(id: String!): Boolean!
+  signin(signinInput: SigninInput!): SignResponse!
+  signup(signupInput: SignupInput!): SignResponse!
+}
+
+type NewTokensResponse {
+  accessToken: String!
+  refreshToken: String!
 }
 
 type Query {
-  user(id: Int!): User
+  hello: String!
 }
 
-input UpdateUserInput {
+type SignResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+input SigninInput {
   email: String!
-  id: Int!
+  password: String!
+}
+
+input SignupInput {
+  email: String!
+  password: String!
 }
 
 type User {
   email: String!
-  id: Int!
+  id: String!
 }

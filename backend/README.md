@@ -2,6 +2,13 @@
 
 This is a backend server for Focus-Finder built with nest.js. To learn about nest.js and how to use it with GraphQL, visit: https://docs.nestjs.com/graphql
 
+## ENV 
+``` bash
+DATABASE_URL=
+ACCESS_TOKEN_SECRET=
+REFRESH_TOKEN_SECRET=
+```
+
 ## Available APIs
 
 Currently, CRUD operations on `Users` are available for testing purposes. You can connect to your local Postgres db and test the queries.
@@ -47,6 +54,49 @@ mutation {
   }
 }
 ```
+
+## Auth
+- Every Query or Mutation is protected and requires `{"authorization": "Bearer TOKEN"}` on the http header to complete the request. 
+- There are exceptions if the Query or Mutation are using the `@Public` decorator, where http header `{"authorization": "Bearer TOKEN"}` is not required
+### Signup (Public)
+This mutation requires a query input `{"input": { "email": "EMAIL_HERE", "password": "SECRET_HERE" } }`
+```
+mutation Signup($input: SignupInput!) {
+  signup(signupInput: $input) {
+    accessToken
+    refreshToken
+    user {
+      email
+      id
+    }
+  }
+}
+```
+### Signin (Public)
+
+This mutation requires a query input `{"input": { "email": "EMAIL_HERE", "password": "SECRET_HERE" } }`
+```
+mutation Signin($input: SigninInput!) {
+  signin(signinInput: $input) {
+    accessToken
+    refreshToken
+    user {
+      email
+      id
+    }
+  }
+}
+```
+
+### GetNewTokens
+
+This mutation requires a http header `{"authorization": "Bearer REFRESH_TOKEN" }`
+```
+mutation GetNewTokens {
+	getNewTokens{accessToken, refreshToken}
+}
+```
+
 
 ## Test instructions
 - Make sure PostgreSQL is installed and running on your machine. (See docs for installation: https://www.postgresql.org/download/)
