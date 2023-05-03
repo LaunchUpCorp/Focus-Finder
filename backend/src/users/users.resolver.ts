@@ -8,34 +8,34 @@ import { UsersService } from './users.service';
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly usersService: UsersService) {}
-
-  @Query(() => User, { name: 'user', nullable: true })
-  async getUser(@Args() getUserArgs: GetUserArgs): Promise<User> {
-    return this.usersService.user(getUserArgs);
-  }
-
-  @Mutation(() => User)
-  async createUser(
-    @Args('createUserData') createUserData: CreateUserInput,
-  ): Promise<User> {
-    return this.usersService.createUser(createUserData);
-  }
-
-  @Mutation(() => User)
-  async updateUser(
-    @Args('updateUserData') updateUserData: UpdateUserInput,
-  ): Promise<User> {
-    return this.usersService.updateUser({
-      where: updateUserData,
-      data: updateUserData,
-    });
-  }
-
-  @Mutation(() => User)
-  async deleteUser(
-    @Args('deleteUserData') deleteUserData: DeleteUserInput,
-  ): Promise<User> {
-    return this.usersService.deleteUser(deleteUserData);
-  }
+  // constructor(private readonly usersService: UsersService) {}
+  //
+  // @Query(() => User, { name: 'user', nullable: true })
+  // async getUser(@Args() getUserArgs: GetUserArgs): Promise<User> {
+  //   return this.usersService.user(getUserArgs);
+  // }
+  //
+  // @Mutation(() => User)
+  // async createUser(
+  //   @Args('createUserData') createUserData: CreateUserInput,
+  // ): Promise<User> {
+  //   return this.usersService.createUser(createUserData);
+  // }
+  //
+  // @Mutation(() => User)
+  // async updateUser(
+  //   @Args('updateUserData') updateUserData: UpdateUserInput,
+  // ): Promise<User> {
+  //   return this.usersService.updateUser({
+  //     where: updateUserData,
+  //     data: updateUserData,
+  //   });
+  // }
+  //
+  // @Mutation(() => User)
+  // async deleteUser(
+  //   @Args('deleteUserData') deleteUserData: DeleteUserInput,
+  // ): Promise<User> {
+  //   return this.usersService.deleteUser(deleteUserData);
+  // }
 }
