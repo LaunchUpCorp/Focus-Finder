@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.12",
+    "@types/chrome": "^0.0.235",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
