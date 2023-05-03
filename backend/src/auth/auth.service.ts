@@ -1,7 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { SignupInput } from './dto/signup.input';
 import { SigninInput } from './dto/signin.input';
-import { UpdateAuthInput } from './dto/update-auth.input';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as argon from 'argon2';
@@ -47,7 +46,7 @@ export class AuthService {
       user.email,
     );
     await this.updateRefreshToken(user.id, refreshToken);
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, user };
   }
 
   async createTokens(userId: string, email: string) {
@@ -58,7 +57,7 @@ export class AuthService {
       },
       {
         expiresIn: '24h',
-        secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
+        secret: this.configService.get('ACCESS_TOKEN_SECRET'),
       },
     );
     const refreshToken = this.jwtService.sign(
@@ -69,7 +68,7 @@ export class AuthService {
       },
       {
         expiresIn: '7d',
-        secret: this.configService.get('JWT_REFRESH_TOKEN_KEY'),
+        secret: this.configService.get('REFRESH_TOKEN_SECRET'),
       },
     );
     return { accessToken, refreshToken };
@@ -88,5 +87,22 @@ export class AuthService {
       data: { hashedRefreshToken: null },
     });
     return { loggedOut: true };
+  }
+
+  async getNewTokens(userId: string, rt: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const verifyRefreshToken = await argon.verify(user.hashedRefreshToken, rt);
+    if (!verifyRefreshToken) {
+      throw new ForbiddenException('Access Denied');
+    }
+    const { accessToken, refreshToken } = await this.createTokens(
+      user.id,
+      user.email,
+    );
+    await this.updateRefreshToken(user.id, refreshToken);
+    return { accessToken, refreshToken, user };
   }
 }
