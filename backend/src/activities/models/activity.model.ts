@@ -1,9 +1,9 @@
-import { ObjectType, Int, Field, GraphQLTimestamp } from '@nestjs/graphql';
+import { ObjectType, Field, GraphQLTimestamp } from '@nestjs/graphql';
 
 @ObjectType()
 export class Activity {
-  @Field(() => Int)
-  id: number;
+  @Field()
+  id: string;
 
   @Field()
   url: string;
@@ -14,6 +14,6 @@ export class Activity {
   @Field(() => GraphQLTimestamp)
   endTime: Date;
 
-  @Field(() => Int)
-  userId: number;
+  @Field()
+  userId: string;
 }

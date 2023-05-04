@@ -2,6 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+<<<<<<< HEAD
 type Activity {
   endTime: Timestamp!
   id: Int!
@@ -30,23 +31,50 @@ type Mutation {
   createUser(createUserData: CreateUserInput!): User!
   deleteUser(deleteUserData: DeleteUserInput!): User!
   updateUser(updateUserData: UpdateUserInput!): User!
+=======
+type Mutation {
+  getNewTokens: NewTokensResponse!
+  logout(id: String!): Boolean!
+  signin(signinInput: SigninInput!): SignResponse!
+  signup(signupInput: SignupInput!): SignResponse!
+}
+
+type NewTokensResponse {
+  accessToken: String!
+  refreshToken: String!
+>>>>>>> dev
 }
 
 type Query {
-  user(id: Int!): User
+  hello: String!
 }
 
+<<<<<<< HEAD
 """
 `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
 scalar Timestamp
 
 input UpdateUserInput {
+=======
+type SignResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+input SigninInput {
+>>>>>>> dev
   email: String!
-  id: Int!
+  password: String!
+}
+
+input SignupInput {
+  email: String!
+  password: String!
 }
 
 type User {
   email: String!
-  id: Int!
+  id: String!
 }
