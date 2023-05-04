@@ -11,10 +11,20 @@ datasource db {
 }
 
 model User {
-  id    String    @id @default(uuid())
-  email String @unique
-  hashedPassword String
+  id                 String     @id @default(uuid())
+  email              String     @unique
+  hashedPassword     String
   hashedRefreshToken String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @default(now())
+  Activity           Activity[]
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  url       String
+  startTime DateTime
+  endTime   DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
 }
