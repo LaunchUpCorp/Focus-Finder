@@ -2,5 +2,16 @@
   "manifest_version": 3,
   "name": "Focus Finder Chrome Extension",
   "version": "1.0.0",
-  "action": { "default_popup": "index.html" }
+  "action": { "default_popup": "index.html" },
+  "permissions": ["storage", "tabs"],
+  "content_scripts": [
+    {
+      "js": ["src/main.tsx"],
+      "matches": ["http://*/*", "https://*/*", "<all_urls>"]
+    }
+  ],
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  }
 }
