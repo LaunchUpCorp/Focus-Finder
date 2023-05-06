@@ -13,3 +13,18 @@ VITE_APP_WEBSITE_URL=
 
 ![Image](https://uploads.linear.app/63e73cf7-d0b3-4cf8-8368-c4f61cd3ed33/9eb59e1c-3d8c-4154-b60f-2a9e77f747df/99f23ed7-f811-47a2-87f2-b46e59f44c5a)
 ![Image](https://uploads.linear.app/63e73cf7-d0b3-4cf8-8368-c4f61cd3ed33/f573d75e-57b4-4939-be5f-169aa0e7afe5/0c010f83-c52b-4448-8c12-9089ca275bc7)
+
+### Activity Tacking
+- This tracks chrome tabs of the user. Grabbing the websites visited and the duration on that website. 
+
+Tracking Datastructure
+``` json
+{
+    "chromeTabd": "number (not unique between different users)",
+    "domain": "string",
+    "start": "Date",
+    "end": "Date",
+    "userId": "string"
+}
+
+```
