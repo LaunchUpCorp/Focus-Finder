@@ -13,7 +13,11 @@ function trackData() {
     const query = { active: true, lastFocusedWindow: true };
     const { url, id } = await queryTabs(query);
     const domain = getDomain(url as string);
-    if (!trackingData.start) {
+    if (trackingData.domain !== domain && trackingData.start) {
+      uploadData(trackingData);
+      console.log(chromeTabs);
+    }
+    if (!trackingData.start && domain) {
       updateData(trackingData, id as number, domain);
     }
   });
@@ -25,7 +29,7 @@ function trackData() {
       uploadData(trackingData);
       console.log(chromeTabs);
     }
-    if (!trackingData.start) {
+    if (!trackingData.start && domain) {
       updateData(trackingData, id as number, domain);
     }
   });
