@@ -3,7 +3,7 @@
   "name": "Focus Finder Chrome Extension",
   "version": "1.0.0",
   "action": { "default_popup": "index.html" },
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "idle"],
   "content_scripts": [
     {
       "js": ["src/main.tsx"],
